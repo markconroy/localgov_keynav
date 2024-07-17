@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for LocalGov KeyNav module.
+ */
+
+function localgov_keynav_preprocess_page(&$variables) {
+  // Add the keynav library to the page.
+  $variables['#attached']['library'][] = 'localgov_keynav/keynav';
+}
