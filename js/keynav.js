@@ -18,7 +18,7 @@
       function handleTimeout(link) {
         clearTimeout(redirectTimeout);
         redirectTimeout = setTimeout(() => {
-          // window.location.href = link.href;
+          window.location.href = link.href;
           console.log(link.href);
           keySequence = '';
         }, 750);
@@ -42,7 +42,7 @@
                 redirectTimeout = setTimeout(() => {
                   window.location.href = sequence.url;
                   keySequence = ''; // Reset the key sequence after redirecting
-                }, 750);
+                }, 1000);
               }
             });
           });
@@ -63,14 +63,32 @@
                 if (keySequence === `lgdt${(topLevelItemIndex + 1)}.${(levelOneItemIndex)}`) {
                   handleTimeout(levelOneItem);
                 }
-                // const toolbarLinksLevel2Items = levelOneItem.closest('li > ul').querySelectorAll('li > a');
-
-                // toolbarLinksLevel2Items.forEach((levelTwoItem, levelTwoItemIndex) => {
-                //   if (keySequence === `lgdt${(topLevelItemIndex + 1)}.${(levelOneItemIndex)}.${(levelTwoItemIndex)}`) {
-                //     console.log(keySequence);
-                //     handleTimeout(levelTwoItem);
-                //   }
-                // });
+                const hasLevel2Items = levelOneItem.closest('li').querySelector('.toolbar-menu');
+                if (hasLevel2Items) {
+                  const toolbarLinksLevel2ItemsLi = Array.from(hasLevel2Items.children);
+                  const toolbarLinksLevel2Items = [];
+                  toolbarLinksLevel2ItemsLi.forEach((li) => {
+                    toolbarLinksLevel2Items.push(li.querySelector('a'));
+                  });
+                  toolbarLinksLevel2Items.forEach((levelTwoItem, levelTwoItemIndex) => {
+                    if (keySequence === `lgdt${(topLevelItemIndex + 1)}.${(levelOneItemIndex)}.${(levelTwoItemIndex)}`) {
+                      handleTimeout(levelTwoItem);
+                    }
+                    const hasLevel3Items = levelTwoItem.closest('li').querySelector('.toolbar-menu');
+                    if (hasLevel3Items) {
+                      const toolbarLinksLevel3ItemsLi = Array.from(hasLevel3Items.children);
+                      const toolbarLinksLevel3Items = [];
+                      toolbarLinksLevel3ItemsLi.forEach((li) => {
+                        toolbarLinksLevel3Items.push(li.querySelector('a'));
+                      });
+                      toolbarLinksLevel3Items.forEach((levelThreeItem, levelThreeItemIndex) => {
+                        if (keySequence === `lgdt${(topLevelItemIndex + 1)}.${(levelOneItemIndex)}.${(levelTwoItemIndex)}.${(levelThreeItemIndex)}`) {
+                          handleTimeout(levelThreeItem);
+                        }
+                      });
+                    }
+                  });
+                }
               });
             }
           });

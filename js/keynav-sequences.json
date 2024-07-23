@@ -4,6 +4,14 @@
     "url": "/admin/content"
   },
   {
+    "keynavSequence": "acac",
+    "url": "/node/add"
+  },
+  {
+    "keynavSequence": "acna",
+    "url": "/node/add"
+  },
+  {
     "keynavSequence": "as",
     "url": "/admin/structure"
   },
