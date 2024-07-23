@@ -5,6 +5,9 @@
  * Primary module hooks for LocalGov KeyNav module.
  */
 
+/**
+ * Implements hook_preprocess_page().
+ */
 function localgov_keynav_preprocess_page(&$variables) {
 
   // Correct way to get the module path in Drupal 8+.
