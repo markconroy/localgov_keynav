@@ -2,11 +2,14 @@
  * @file JS file for the keynav module.
  */
 
-(function keyNavScript(Drupal) {
+(function keyNavScript(Drupal, drupalSettings) {
   Drupal.behaviors.keyNav = {
     attach: function (context) {
       let keySequence = ''; // Initialize variable to store key presses
-      const sequences = fetch(`${window.location.origin}/modules/contrib/localgov_keynav/js/keynav-sequences.json`).then((response) => {
+      const modulePath = drupalSettings.localgovKeyNav.modulePath;
+
+      // Use the modulePath to construct the URL to the JSON file
+      const sequences = fetch(`${window.location.origin}/${modulePath}/js/keynav-sequences.json`).then((response) => {
         return response.json();
       });
 
@@ -149,4 +152,4 @@
 
     },
   };
-})(Drupal);
+})(Drupal, drupalSettings);
