@@ -9,7 +9,6 @@ function localgov_keynav_preprocess_page(&$variables) {
 
   // Correct way to get the module path in Drupal 8+.
   $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'localgov_keynav');
-  dump($module_path);
   $settings = [
     'modulePath' => $module_path,
     'marky' => 'marky',
