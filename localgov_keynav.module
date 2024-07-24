@@ -10,15 +10,21 @@
  */
 function localgov_keynav_preprocess_page(&$variables) {
 
-  // Correct way to get the module path in Drupal 8+.
-  $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'localgov_keynav');
-  $settings = [
-    'modulePath' => $module_path,
-  ];
+  // Get the current user.
+  $current_user = \Drupal::currentUser();
 
-  // Attach the settings to the page.
-  $variables['#attached']['drupalSettings']['localgovKeyNav'] = $settings;
+  // Check if the user has the 'use keynav' permission.
+  if ($current_user->hasPermission('Use LocalGov keynav')) {
 
-  // Add the keynav library to the page.
-  $variables['#attached']['library'][] = 'localgov_keynav/keynav';
+    $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'localgov_keynav');
+    $settings = [
+      'modulePath' => $module_path,
+    ];
+
+    // Attach the settings to the page.
+    $variables['#attached']['drupalSettings']['localgovKeyNav'] = $settings;
+
+    // Add the keynav library to the page.
+    $variables['#attached']['library'][] = 'localgov_keynav/keynav';
+  }
 }
